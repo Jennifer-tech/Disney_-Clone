@@ -56,11 +56,11 @@ const Nav = styled.nav`
   display: flex;
   align-items: center;
   padding: 0px 36px;
-  ${'' /* justify-content: space-around; */}
+  overflow-x: hidden;
 `
 const Logo = styled.img`
   width: 80px;
-  ${'' /* padding-top: 10px; */}
+  
 `
 const NavMenu = styled.div`
   display: flex;
