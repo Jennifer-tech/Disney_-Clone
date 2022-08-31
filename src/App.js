@@ -1,6 +1,7 @@
 import React from 'react';
-// import { Counter } from './features/counter/Counter';
+import { Counter } from './features/counter/Counter';
 import Header from './component/Header';
+import Login from './component/Login';
 import Home from './component/Home';
 import Detail from './component/Detail'
 import './App.css';
@@ -16,6 +17,7 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
+        <Route path = "login" element={<Login />} />
         <Route path = "detail" element={<Detail />} />
         <Route path = "/" element={<Home />} />
       </Routes>

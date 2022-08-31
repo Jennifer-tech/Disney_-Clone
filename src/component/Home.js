@@ -1,10 +1,52 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import ImageSlider from "./ImageSlider";
 import Viewers from "./Viewers";
-import Movies from "./Movies"
+import Movies from "./Movies";
+import db from "./firebase";
+import { useDispatch } from "react-redux";
+import { setMovies } from "../features/movie/movieSlice";
+import { getFirestore, collection, getDocs, onSnapshot, doc, getDocFromServer } from 'firebase/firestore';
+import { async } from '@firebase/util';
 
 function Home() {
+
+  const [movies, setMovies] = useState([]);
+  const dispatch = useDispatch();
+
+  // const getMovies = async(db) => {
+    async function getMovies(db){
+    const moviesCol = collection(db, "movies");
+    // console.log(moviesCol);
+    const movieSnapshot = await getDocs(moviesCol);
+    // console.log(movieSnapshot);
+    const moviesList = movieSnapshot.docs.map(doc => doc.data());
+    return moviesList;
+    // console.log(moviesList);
+  }
+  
+
+
+
+  useEffect(() => {
+
+    const _setMovies = async() => {
+      const _movies = await getMovies(db);
+      console.log(_movies)
+      setMovies(_movies)
+    }
+    _setMovies()
+
+    const colRef = collection(db, "movies")
+    const unsub = onSnapshot(colRef)
+    console.log(unsub)
+    // dispatch(setMovies(moviesList));
+    
+    // return () => {
+  
+      // }
+  }, [])
+
   return (
     <Container>
       <ImageSlider />
